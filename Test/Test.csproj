@@ -8,11 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Point2D测试.cs" />
     <Compile Remove="test.cs" />
     <Compile Remove="向量测试.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Point2D测试.cs" />
     <None Include="test.cs" />
     <None Include="向量测试.cs" />
   </ItemGroup>

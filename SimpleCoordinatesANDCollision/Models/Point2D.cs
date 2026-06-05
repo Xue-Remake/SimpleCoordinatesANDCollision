@@ -11,21 +11,21 @@ namespace SimpleCoordinatesANDCollision.Models
     {
         public Double pointX;
         public Double pointY;
-        public abstract void update();
-        protected abstract void Move();
+        public abstract void Update();
+        protected abstract void move();
         protected abstract void accelerate();
     }
     public class PolarSpeedPoint2D : Point2D
     {
-        public PolarVector Speed;
-        public PolarVector Acceleration;
+        public PolarVector Speed = new PolarVector(0,0);
+        public PolarVector Acceleration = new PolarVector(0,0);
 
-        public override void update()
+        public override void Update()
         {
             accelerate();
-            Move();
+            move();
         }
-        protected override void Move()
+        protected override void move()
         {
             pointX += (Speed.R) * Math.Cos(Speed.Theta);
             pointY += (Speed.R) * Math.Sin(Speed.Theta);

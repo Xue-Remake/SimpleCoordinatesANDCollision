@@ -132,5 +132,13 @@ namespace SimpleCoordinatesANDCollision.Vector
         /// 获取哈希码
         /// </summary>
         public override int GetHashCode() => HashCode.Combine(R, Theta);
+        /// <summary>
+        /// 归零
+        /// </summary>
+        public void ReturnToZero()
+        {
+            R = 0;
+            Theta = 0;
+        }
     }
 }
