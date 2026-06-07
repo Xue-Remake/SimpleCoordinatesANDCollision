@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="BagAndShop/BagAndShop.csproj" Id="f23d08b6-3d79-481f-87e0-b6f9dbd37dc0" />
   <Project Path="SimpleCoordinatesANDCollision/SimpleCoordinatesANDCollision.csproj" />
   <Project Path="Test/Test.csproj" Id="24fad3c4-0e7a-4fc7-bbbd-e365bf71507e" />
 </Solution>
