@@ -2,7 +2,7 @@ using SimpleSQLiteORM;
 
 namespace BagAndShop.ItemTemplate
 {
-    public class Item : ItemBase, IHasInfo<ItemInfo>
+    public class Item : ItemBase, IHasInfo<Item,ItemInfo>
     {
         private static readonly Item NullItem = new Item(-1001, "empty", 0, 0, 0, "null", -1, CategoryTag.Empty, StatusTag.Empty);
         public string Description { get; private set; }
@@ -34,7 +34,7 @@ namespace BagAndShop.ItemTemplate
         }
     }
     [DbTable("Items")]
-    public class ItemInfo : IBaseInfo
+    public class ItemInfo : IBaseInfo<Item>
     {
         [DbKey]
         public int ID { get; set; } = -1001;
@@ -54,6 +54,11 @@ namespace BagAndShop.ItemTemplate
         public string Status { get; set; } = StatusTag.Empty.ToString();
         [DbColumn]
         public string Description { get; set; } = "null";
+
+        public Item ToEntity()
+        {
+            return new Item(ID, Name, Price, MaxStack, Weight, Description, Rarity,TagConverter.StringToCategory(Category), TagConverter.StringToStatus(Status));
+        }
 
         public ItemInfo(int id, string name, int price, double weight, int maxStack, int rarity, string category, string status, string description)
         {
