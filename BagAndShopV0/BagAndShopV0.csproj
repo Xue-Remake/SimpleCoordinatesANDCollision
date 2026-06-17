@@ -7,8 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="SimpleSQLiteORM">
-      <HintPath>..\dependencies\SimpleSQLiteORM.dll</HintPath>
+    <Compile Remove="Settings1.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Settings1.settings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SqliteCrudLib">
+      <HintPath>..\dependencies\SqliteCrudLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 
