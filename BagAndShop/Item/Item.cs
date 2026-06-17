@@ -1,8 +1,9 @@
+using BagAndShop.Manager;
 using SimpleSQLiteORM;
 
 namespace BagAndShop.ItemTemplate
 {
-    public class Item : ItemBase, IHasInfo<Item,ItemInfo>
+    public class Item : ItemBase, IEntity<Item,ItemInfo>
     {
         private static readonly Item NullItem = new Item(-1001, "empty", 0, 0, 0, "null", -1, CategoryTag.Empty, StatusTag.Empty);
         public string Description { get; private set; }
@@ -34,7 +35,7 @@ namespace BagAndShop.ItemTemplate
         }
     }
     [DbTable("Items")]
-    public class ItemInfo : IBaseInfo<Item>
+    public class ItemInfo : IInfo<Item>
     {
         [DbKey]
         public int ID { get; set; } = -1001;
