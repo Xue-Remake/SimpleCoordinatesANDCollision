@@ -1,11 +1,11 @@
 using BagAndShop.Manager;
 using SimpleSQLiteORM;
 
-namespace BagAndShop.ItemTemplate
+namespace BagAndShop.ItemSystem.Template
 {
-    public class Item : ItemBase, IEntity<Item,ItemInfo>
+    public class Item : ItemBase, IEntity<Item, ItemInfo>
     {
-        private static readonly Item NullItem = new Item(-1001, "empty", 0, 0, 0, "null", -1, CategoryTag.Empty, StatusTag.Empty);
+        public new Item NullItem { get; } = new Item(-1001, "empty", 0, 0, 0, "null", -1, CategoryTag.Empty, StatusTag.Empty);
         public string Description { get; private set; }
         public int Rarity { get; private set; } = -1;
         public CategoryTag Category { get; set; } = CategoryTag.Empty;
@@ -20,14 +20,14 @@ namespace BagAndShop.ItemTemplate
             Category = category;
             Status = status;
         }
-        public Item()
+        public Item() : base()
         {
             Description = "null";
         }
-        public Item GetNullItem() => NullItem.CopyTo();
-        private Item CopyTo()
+        public Item(int id) : base()
         {
-            return new Item(this.ID, this.Name, this.Price, this.MaxStack, this.Weight, this.Description, this.Rarity, this.Category, this.Status);
+            ID = id;
+            Description = "null";
         }
         public ItemInfo ToInfo()
         {
@@ -58,7 +58,7 @@ namespace BagAndShop.ItemTemplate
 
         public Item ToEntity()
         {
-            return new Item(ID, Name, Price, MaxStack, Weight, Description, Rarity,TagConverter.StringToCategory(Category), TagConverter.StringToStatus(Status));
+            return new Item(ID, Name, Price, MaxStack, Weight, Description, Rarity, TagConverter.StringToCategory(Category), TagConverter.StringToStatus(Status));
         }
 
         public ItemInfo(int id, string name, int price, double weight, int maxStack, int rarity, string category, string status, string description)

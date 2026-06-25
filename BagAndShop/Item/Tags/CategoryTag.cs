@@ -1,4 +1,4 @@
-namespace BagAndShop.ItemTemplate
+namespace BagAndShop.ItemSystem.Template
 {
     public enum CategoryTag
     {

@@ -1,7 +1,8 @@
-namespace BagAndShop
+namespace BagAndShop.ItemSystem
 {
-    public abstract class ItemBase
+    public class ItemBase
     {
+        public readonly ItemBase NullItem = new(1001, "empty", 0, 0, 0);
         public string Name { get; protected set; }
         public int ID { get; protected set; }
         public int Price { get; protected set; }
