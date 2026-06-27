@@ -24,6 +24,7 @@ namespace BagAndShop.BagSystem.Template
                 Item = (ItemBase)item;
                 Count = count;
             }
+            else throw new Exception("The object" + item + "is not an item");
         }
         public SlotInfo ToInfo()
         {
@@ -31,13 +32,18 @@ namespace BagAndShop.BagSystem.Template
             return new SlotInfo(this.BagID, this.Index, t.FullName ?? throw new Exception($"The Item of Slot:({BagID}, {Index}) has a \"null\" type"), Item.ID, Count);
         }
     }
-
+    [DbTable("Slots")]
     public class SlotInfo : IInfo<Slot>
     {
+        [DbKey]
         public int BagID { get; set; } = -1;
+        [DbKey]
         public int Index { get; set; } = -1;
+        [DbColumn]
         public string ItemType { get; set; }
+        [DbColumn]
         public int ItemID { get; set; }
+        [DbColumn]
         public int Count { get; set; }
         public bool IsComplete => (BagID != -1 & Index != -1);
         public SlotInfo(int bid, int idx, string typeStr, int iid, int count)

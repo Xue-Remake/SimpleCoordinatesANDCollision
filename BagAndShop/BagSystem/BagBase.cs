@@ -5,11 +5,10 @@ namespace BagAndShop.BagSystem
         public int ID { get; protected set; }
         public string Name { get; protected set; }
 
-        public BagBase(int iD, string name)
+        public BagBase(int id, string name)
         {
-            ID = iD;
+            ID = id;
             Name = name;
         }
-        protected List<SlotBase> Slots = new();
     }
 }
