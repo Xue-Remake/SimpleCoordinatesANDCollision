@@ -1,6 +1,6 @@
 <Solution>
   <Project Path="BagAndShop/BagAndShop.csproj" Id="c6a21d05-1f37-446a-a677-a8450a4ec1e8" />
-  <Project Path="BagAndShopV0/BagAndShopV0.csproj" />
+  <Project Path="CrafterSystem/CrafterSystem.csproj" Id="a64e271c-87c7-4770-b08c-2c98bec7a539" />
   <Project Path="SimpleCoordinatesANDCollision/SimpleCoordinatesANDCollision.csproj" />
   <Project Path="Test/Test.csproj" Id="24fad3c4-0e7a-4fc7-bbbd-e365bf71507e" />
 </Solution>

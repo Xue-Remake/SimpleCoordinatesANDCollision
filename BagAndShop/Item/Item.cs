@@ -3,15 +3,13 @@ using SimpleSQLiteORM;
 
 namespace BagAndShop.ItemSystem.Template
 {
-    public class Item : ItemBase, IEntity<Item, ItemInfo>
+    public class Item : ItemBase, IEntity<Item, ItemData>
     {
         public new Item NullItem { get; } = new Item(-1001, "empty", 0, 0, 0, "null", -1, CategoryTag.Empty, StatusTag.Empty);
         public string Description { get; private set; }
         public int Rarity { get; private set; } = -1;
         public CategoryTag Category { get; set; } = CategoryTag.Empty;
         public StatusTag Status { get; set; } = StatusTag.Empty;
-
-        public ItemInfo Information { get => this.ToInfo(); }
 
         public Item(int id, string name, int price, int maxStack, double weight, string description, int rarity, CategoryTag category, StatusTag status) : base(id, name, price, maxStack, weight)
         {
@@ -29,13 +27,13 @@ namespace BagAndShop.ItemSystem.Template
             ID = id;
             Description = "null";
         }
-        public ItemInfo ToInfo()
+        public ItemData ToData()
         {
-            return new ItemInfo(ID, Name, Price, Weight, MaxStack, Rarity, Category.ToString(), Status.ToString(), Description);
+            return new ItemData(ID, Name, Price, Weight, MaxStack, Rarity, Category.ToString(), Status.ToString(), Description);
         }
     }
     [DbTable("Items")]
-    public class ItemInfo : IInfo<Item>
+    public class ItemData : IData<Item>
     {
         [DbKey]
         public int ID { get; set; } = -1001;
@@ -61,7 +59,7 @@ namespace BagAndShop.ItemSystem.Template
             return new Item(ID, Name, Price, MaxStack, Weight, Description, Rarity, TagConverter.StringToCategory(Category), TagConverter.StringToStatus(Status));
         }
 
-        public ItemInfo(int id, string name, int price, double weight, int maxStack, int rarity, string category, string status, string description)
+        public ItemData(int id, string name, int price, double weight, int maxStack, int rarity, string category, string status, string description)
         {
             ID = id;
             Name = name;
@@ -73,7 +71,7 @@ namespace BagAndShop.ItemSystem.Template
             Status = status;
             Description = description;
         }
-        public ItemInfo()
+        public ItemData()
         { }
     }
 }

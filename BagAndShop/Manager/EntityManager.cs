@@ -16,9 +16,9 @@ namespace BagAndShop.Manager
         /// <param name="entity">要保存的实体对象</param>
         public static async Task Save<TEntity, TInfo>(SqliteDataBase db, TEntity entity)
             where TEntity : IEntity<TEntity, TInfo>
-            where TInfo : IInfo<TEntity>
+            where TInfo : IData<TEntity>
         {
-            TInfo info = entity.ToInfo();
+            TInfo info = entity.ToData();
             await db.UpsertAsync<TInfo>(info);
         }
         /// <summary>
@@ -30,11 +30,11 @@ namespace BagAndShop.Manager
         /// <param name="key">主键 ID</param>
         /// <returns>加载的实体对象</returns>
         /// <exception cref="DataNotFoundException">当找不到对应主键的数据时抛出</exception>
-        public static async Task<TEntity> Load<TEntity, TInfo>(SqliteDataBase db, int key)
-            where TEntity : IEntity<TEntity, TInfo>
-            where TInfo : IInfo<TEntity>, new()
+        public static async Task<TEntity> Load<TEntity, TData>(SqliteDataBase db, int key)
+            where TEntity : IEntity<TEntity, TData>
+            where TData : IData<TEntity>, new()
         {
-            TInfo info = await db.GetByKeyAsync<TInfo>(key)
+            TData info = await db.GetByKeyAsync<TData>(key)
                 ?? throw new DataNotFoundException(db, "From key");
             return info.ToEntity();
         }
@@ -47,22 +47,22 @@ namespace BagAndShop.Manager
         /// <param name="whereClause">SQL WHERE 查询子句</param>
         /// <returns>查询到的第一个实体对象</returns>
         /// <exception cref="DataNotFoundException">未查询到符合条件的数据时抛出</exception>
-        public static async Task<TEntity> Load<TEntity, TInfo>(SqliteDataBase db, string whereClause)
-            where TEntity : IEntity<TEntity, TInfo>
-            where TInfo : IInfo<TEntity>, new()
+        public static async Task<TEntity> Load<TEntity, TData>(SqliteDataBase db, string whereClause)
+            where TEntity : IEntity<TEntity, TData>
+            where TData : IData<TEntity>, new()
         {
-            List<TInfo> infos = await db.QueryAsync<TInfo>(
+            List<TData> datas = await db.QueryAsync<TData>(
                 where: whereClause
                 );
-            if (infos.Count <= 0)
+            if (datas.Count <= 0)
             {
                 throw new DataNotFoundException(db, "Form where clause");
             }
             else
             {
                 // 仅获取第一个数据
-                TInfo info = infos[0];
-                return info.ToEntity();
+                TData data = datas[0];
+                return data.ToEntity();
             }
         }
         /// <summary>
@@ -73,19 +73,19 @@ namespace BagAndShop.Manager
         /// <param name="db">SQLite 数据库实例</param>
         /// <param name="whereClause">SQL WHERE 查询子句</param>
         /// <returns>包含所有匹配实体的列表，若无匹配则返回空列表</returns>
-        public static async Task<List<TEntity>> LoadList<TEntity, TInfo>(SqliteDataBase db, string whereClause)
-            where TEntity : IEntity<TEntity, TInfo>
-            where TInfo : IInfo<TEntity>, new()
+        public static async Task<List<TEntity>> LoadList<TEntity, TData>(SqliteDataBase db, string whereClause)
+            where TEntity : IEntity<TEntity, TData>
+            where TData : IData<TEntity>, new()
         {
-            List<TInfo> infos = await db.QueryAsync<TInfo>(
+            List<TData> datas = await db.QueryAsync<TData>(
                 where: whereClause
                 );
-            if (infos.Count <= 0) return new(); // List查询不抛出异常
+            if (datas.Count <= 0) return new(); // List查询不抛出异常
 
             List<TEntity> entities = new();
-            foreach (var info in infos)
+            foreach (var data in datas)
             {
-                entities.Add(info.ToEntity());
+                entities.Add(data.ToEntity());
             }
             return entities;
         }

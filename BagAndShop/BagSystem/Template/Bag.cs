@@ -3,7 +3,7 @@ using SimpleSQLiteORM;
 
 namespace BagAndShop.BagSystem.Template
 {
-    public class SlotBag : BagBase, IEntity<SlotBag, SlotBagInfo>
+    public class SlotBag : BagBase, IEntity<SlotBag, SlotBagData>
     {
         private List<Slot> slots;
         private int MaxSlotCount;
@@ -18,13 +18,13 @@ namespace BagAndShop.BagSystem.Template
             slots = new();
         }
 
-        public SlotBagInfo ToInfo()
+        public SlotBagData ToData()
         {
-            return new SlotBagInfo(ID, Name, MaxSlotCount);
+            return new SlotBagData(ID, Name, MaxSlotCount);
         }
     }
     [DbTable("SlotBag")]
-    public class SlotBagInfo : IInfo<SlotBag>
+    public class SlotBagData : IData<SlotBag>
     {
         [DbKey]
         public int BagID { get; set; }
@@ -32,12 +32,12 @@ namespace BagAndShop.BagSystem.Template
         public string Name { get; set; }
         [DbColumn]
         public int MaxSlotCount { get; set; }
-        public SlotBagInfo()
+        public SlotBagData()
         {
             BagID = -101;
             Name = "empty";
         }
-        public SlotBagInfo(int bagID, string name, int maxSlotCount)
+        public SlotBagData(int bagID, string name, int maxSlotCount)
         {
             BagID = bagID;
             Name = name;
