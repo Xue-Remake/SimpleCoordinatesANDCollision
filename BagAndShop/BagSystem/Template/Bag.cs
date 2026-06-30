@@ -7,7 +7,7 @@ namespace BagAndShop.BagSystem.Template
     {
         private List<Slot> slots;
         private int MaxSlotCount;
-        public SlotBag(int id, string name,List<Slot> slots, int maxSlotCount) : base(id, name)
+        public SlotBag(int id, string name, List<Slot> slots, int maxSlotCount) : base(id, name)
         {
             this.slots = slots;
             MaxSlotCount = maxSlotCount;

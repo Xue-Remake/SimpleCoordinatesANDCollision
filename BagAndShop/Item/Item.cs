@@ -27,6 +27,7 @@ namespace BagAndShop.ItemSystem.Template
             ID = id;
             Description = "null";
         }
+        
         public ItemData ToData()
         {
             return new ItemData(ID, Name, Price, Weight, MaxStack, Rarity, Category.ToString(), Status.ToString(), Description);

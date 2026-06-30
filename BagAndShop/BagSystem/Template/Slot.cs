@@ -1,10 +1,8 @@
+using BagAndShop.Informations;
 using BagAndShop.ItemSystem;
-using BagAndShop.ItemSystem.Template;
 using BagAndShop.Manager;
 using SimpleSQLiteORM;
 using System.Reflection;
-using BagAndShop;
-using BagAndShop.Informations;
 
 
 namespace BagAndShop.BagSystem.Template
@@ -40,7 +38,7 @@ namespace BagAndShop.BagSystem.Template
             }
             else
             {
-                //TODO: throw a Exception
+                //TODO: throw a Information
             }
         }
         public SlotInformation AddCount(int add)

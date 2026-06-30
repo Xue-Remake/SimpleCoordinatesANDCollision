@@ -1,9 +1,4 @@
 using SimpleCoordinatesANDCollision.Vector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleCoordinatesANDCollision.Models
 {
@@ -17,8 +12,8 @@ namespace SimpleCoordinatesANDCollision.Models
     }
     public class PolarSpeedPoint2D : Point2D
     {
-        public PolarVector Speed = new PolarVector(0,0);
-        public PolarVector Acceleration = new PolarVector(0,0);
+        public PolarVector Speed = new PolarVector(0, 0);
+        public PolarVector Acceleration = new PolarVector(0, 0);
 
         public override void Update()
         {

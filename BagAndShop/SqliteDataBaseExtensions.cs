@@ -1,19 +1,13 @@
 using SimpleSQLiteORM;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BagAndShop
 {
     public static class SqliteDataBaseExtensions
     {
         private static readonly ConcurrentDictionary<Type, MethodInfo> _getByKeyCache = new();
-        public static async Task<object?> GetByKeyAsync(this SqliteDataBase db, Type entityType,params object?[] keys)
+        public static async Task<object?> GetByKeyAsync(this SqliteDataBase db, Type entityType, params object?[] keys)
         {
             // 找到泛型方法 GetByKeyAsync<T> 并构建
             var method = _getByKeyCache.GetOrAdd(entityType, type =>

@@ -1,13 +1,6 @@
 using ConsoleUILib.UILib;
 using SimpleCoordinatesANDCollision.Models;
 using SimpleCoordinatesANDCollision.Vector;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test
 {
@@ -41,12 +34,12 @@ namespace Test
         {
             LinearDamping ship = new LinearDamping(new PolarVector(0, 0), new PolarVector(0, 0), 0.5, 0.02);
 
-            int[] tics = {1,200,400};
+            int[] tics = { 1, 200, 400 };
             PolarVector[] Accelerations = { new(0.008, 0), new(0.007, (0.5) * Math.PI), new(0.01, (1) * Math.PI) };
             int tic = 0;
-             
 
-            Session session = new Session(1000/30);
+
+            Session session = new Session(1000 / 30);
             var ShipX = new StaticText();
             var ShipY = new StaticText();
             var ShipSpeedR = new StaticText();
@@ -87,7 +80,7 @@ namespace Test
                 ship.Update();
                 if (tic % 10 == 0)
                 {
-                    DataList.Add(new ShipData(tic, ship.pointX, ship.pointY, ship.Speed.R, ship.Speed.Theta, ship.Acceleration.R,ship.Acceleration.Theta));
+                    DataList.Add(new ShipData(tic, ship.pointX, ship.pointY, ship.Speed.R, ship.Speed.Theta, ship.Acceleration.R, ship.Acceleration.Theta));
                 }
                 if (tic == 600)
                 {

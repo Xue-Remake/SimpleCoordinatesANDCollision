@@ -1,3 +1,5 @@
+using SimpleSQLiteORM;
+
 namespace BagAndShop.Manager
 {
     /// <summary>
@@ -16,5 +18,6 @@ namespace BagAndShop.Manager
     public interface IEntity<TSelf, TData> where TSelf : IEntity<TSelf, TData> where TData : IData<TSelf>
     {
         TData ToData();
+        void LoadFrom(SqliteDataBase db);
     }
 }
