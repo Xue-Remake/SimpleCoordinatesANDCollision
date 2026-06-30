@@ -28,17 +28,25 @@ namespace BagAndShop.BagSystem.Template
         }
 
         #region 操作逻辑
-        public async Task LoadFromDB(SqliteDataBase db)
+        public async Task<LoadInformation> LoadFrom(SqliteDataBase db)
         {
-            Type itemType = Item.GetType();
-            var item = await db.GetByKeyAsync(itemType, Item.ID);
-            if (item is ItemBase)
+            // 尝试用Item半成品加载 Item 数据
+            // 使用反射，检查Item是否继承了IEntity接口
+            if (Item.GetType().ImplementsGenericInterface(typeof(IEntity<,>)))
             {
-                Item = (ItemBase)item;
+                try
+                {
+                    dynamic item = Item;
+                    LoadInformation info = item.LoadFrom(db);
+                    
+                }
+                catch (Exception)
+                { 
+                }
             }
             else
             {
-                //TODO: throw a Information
+                return LoadInformation.GetFaild(db, Item);
             }
         }
         public SlotInformation AddCount(int add)
@@ -120,6 +128,8 @@ namespace BagAndShop.BagSystem.Template
             return new SlotData(this.BagID, this.Index, t.FullName ?? throw new Exception($"The Item of Slot:({BagID}, {Index}) has a \"null\" type"), Item.ID, Count);
         }
     }
+
+
     [DbTable("Slots")]
     public class SlotData : IData<Slot>
     {

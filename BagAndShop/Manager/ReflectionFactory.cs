@@ -130,4 +130,32 @@ namespace BagAndShop.Manager
 
         #endregion
     }
+    public static class TypeExtensions
+    {
+        /// <summary>
+        /// 判断当前类型是否实现了指定的泛型接口定义（如 typeof(IMyInterface<,>)）
+        /// </summary>
+        public static bool ImplementsGenericInterface(this Type type, Type interfaceType)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (interfaceType == null) throw new ArgumentNullException(nameof(interfaceType));
+
+            // 确保传入的 interfaceType 是一个泛型接口定义
+            if (!interfaceType.IsInterface || !interfaceType.IsGenericTypeDefinition)
+            {
+                throw new ArgumentException("interfaceType 必须是一个泛型接口定义，例如 typeof(IMyInterface<,>)");
+            }
+
+            // 1. 如果当前类型本身就是该泛型接口（虽然通常我们检查的是类，但也做个容错）
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == interfaceType)
+            {
+                return true;
+            }
+
+            // 2. 遍历该类型实现的所有接口
+            return type.GetInterfaces().Any(i =>
+                i.IsGenericType && i.GetGenericTypeDefinition() == interfaceType
+            );
+        }
+    }
 }

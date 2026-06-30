@@ -1,3 +1,4 @@
+using BagAndShop.Informations;
 using BagAndShop.Manager;
 using SimpleSQLiteORM;
 
@@ -31,6 +32,35 @@ namespace BagAndShop.ItemSystem.Template
         public ItemData ToData()
         {
             return new ItemData(ID, Name, Price, Weight, MaxStack, Rarity, Category.ToString(), Status.ToString(), Description);
+        }
+        public async Task<LoadInformation> LoadFrom(SqliteDataBase db)
+        {
+            var data = await db.GetByKeyAsync<ItemData>(this.ID);
+            if (data == null)
+            {
+                return LoadInformation.GetFaild(db, this);
+            }
+            else
+            {
+                var item = data.ToEntity();
+                if (item is Item && item != null)
+                {
+                    this.Name = item.Name;
+                    this.Price = item.Price;
+                    this.MaxStack = item.MaxStack;
+                    this.Weight = item.Weight;
+                    this.Description = item.Description;
+                    this.Rarity = item.Rarity;
+                    this.Category = item.Category;
+                    this.Status = item.Status;
+
+                    return LoadInformation.GetCompleted(db, this);
+                }
+                else
+                {
+                    return LoadInformation.GetErrorInformation();
+                }
+            }
         }
     }
     [DbTable("Items")]
